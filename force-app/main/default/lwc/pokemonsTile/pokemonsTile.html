@@ -1,0 +1,27 @@
+<template>
+    
+    <div class="slds-align_absolute-center">
+        <lightning-card class="slds-text-title_caps slds-box slds-box_x-small slds-align_absolute-center --slds-c-card-shadow texto-borde" title={titulo}>
+            
+            <div class="slds-align_absolute-center">
+                <button 
+                    class="slds-button" 
+                    slot="actions" 
+                    onclick={navigateToRecordViewPage}>  
+                        <img 
+                            class="pokemon slds-var-m-around_medium"
+                            src={pokemon.Imagen__c}
+                            alt={pokemon.ExtId__c}
+                        />        
+                </button>         
+            </div>
+            
+            <p class="slds-var-p-horizontal_small slds-align_absolute-center"><strong>Tipo:</strong>{pokemon.Tipos__c}</p>
+            <p class="slds-var-p-horizontal_small slds-align_absolute-center"><strong>Altura:</strong>{pokemon.Altura__c}</p>
+            <p class="slds-var-p-horizontal_small slds-align_absolute-center"><strong>Peso:</strong>{pokemon.Peso__c}</p>
+            <p class="slds-var-p-horizontal_small slds-align_absolute-center"><strong>Generación:</strong>{pokemon.Generacion__c}</p>
+            
+        </lightning-card>
+    </div>
+    
+</template>

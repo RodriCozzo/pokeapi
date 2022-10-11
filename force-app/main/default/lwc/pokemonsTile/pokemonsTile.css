@@ -1,0 +1,23 @@
+:host {
+    width: 325px; 
+    display: block;
+}
+
+p.description {
+    min-height: 60px;  
+    text-decoration-color: darkblue;  
+}
+
+img.pokemon {
+    height: 200px;
+    max-width: 200px;
+    border-radius: 1.5rem;
+    border: 2px solid rgb(238, 133, 4);
+}
+    
+lightning-card{
+    
+    color: rgb(0, 0, 0);
+    background-color: #EABE3F;
+    
+}

@@ -1,0 +1,47 @@
+<template>
+    
+  <div class="slds-grid slds-wrap slds-align_absolute-center">
+
+    
+    <div class="slds-box slds-box_x-small">
+      
+      <lightning-input 
+        type="search" 
+        placeholder="Buscar un Pokemon" 
+        onchange={handleInputChange}
+        variant="label-hidden" 
+        style="width: 400px"
+      ></lightning-input>        
+      
+    </div>
+    
+    <div>
+      <lightning-combobox
+        placeholder="Filtrar por Generación"
+        variant="label-hidden"            
+        class="slds-box slds-box_x-small"
+        style="width: 400px"            
+        label="Status"
+        value={generacion}
+        options={options}
+        onchange={handleChangeGen}>
+      </lightning-combobox>
+    </div>
+
+    <div>
+      <lightning-combobox 
+        placeholder="Filtrar por Tipo"
+        variant="label-hidden"
+        class="slds-box slds-box_x-small"
+        style="width: 400px"
+        value={tipo}
+        options={optionsTipos}
+        onchange={handleChangeTipo}>
+      </lightning-combobox>
+    </div>
+
+
+
+  </div>
+
+</template>
