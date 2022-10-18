@@ -30,7 +30,7 @@ public class CallOutPokemonsMock {
             Defensa__c= 15, 
             Ataque__c = 15, 
             Tipos__c = 'normal'
-            // Generacion__c = 1
+            //Generacion__c = 1
             );
         listaPokemons.add(pokemon2);
 

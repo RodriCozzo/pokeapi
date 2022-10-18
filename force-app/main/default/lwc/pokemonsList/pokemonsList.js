@@ -32,7 +32,7 @@ export default class PokemonsList extends LightningElement {
     }
     
     
-    //EVENTO GENERACION
+    //FILTRO POR GENERACION
     handleChangeGen(event) {
         this.generacion = event.detail.value;
         console.log('this.value:' + this.generacion);
@@ -40,7 +40,7 @@ export default class PokemonsList extends LightningElement {
         this.taerPokemons();        
     }
 
-
+    //FILTRO POR TIPO
     handleChangeTipo(event) {
 
         this.tipo = event.detail.value;
