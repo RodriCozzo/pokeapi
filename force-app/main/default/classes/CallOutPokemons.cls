@@ -3,13 +3,20 @@ public class CallOutPokemons implements Database.Batchable<Pokemon__c>,Database.
     //Database.executeBatch(new CallOutPokemons(),1);
     
     public static List<Pokemon__c> start(Database.BatchableContext bc){
-        
         List<Pokemon__c> pokemons = new List<Pokemon__c>();
-        for (Integer i=1; i<=898; i++) {
-            Pokemon__c pokemon = new Pokemon__c(ExtId__c=i);
-            pokemons.add(pokemon);
+        
+        if (Test.isRunningTest()) {
+            for (Integer i=1; i<=1; i++) {
+                Pokemon__c pokemon = new Pokemon__c(ExtId__c=i);
+                pokemons.add(pokemon);
+            }
+        }else {
+            for (Integer i=1; i<=898; i++) {
+                Pokemon__c pokemon = new Pokemon__c(ExtId__c=i);
+                pokemons.add(pokemon);
+            }
         }
-
+        
         insert pokemons;
         System.debug('Pase por el START' + pokemons);
 
@@ -20,7 +27,7 @@ public class CallOutPokemons implements Database.Batchable<Pokemon__c>,Database.
     public static void execute(Database.BatchableContext bc, List<Pokemon__c> pokemons){
         system.debug('Pase por el EXECUTE');
         // Llamar 1 a 1  a mi lista de pokemons - Para deserializar el JSON de pokemons
-
+        
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint('https://pokeapi.co/api/v2/pokemon/'+pokemons[0].ExtId__c);         
@@ -40,13 +47,13 @@ public class CallOutPokemons implements Database.Batchable<Pokemon__c>,Database.
         poke.Peso__c = (Integer)results.get('weight');          
         poke.Imagen__c = (String)((Map<String, Object>)((Map<String, Object>)((Map<String, Object>)results.get('sprites')).get('other')).get('official-artwork')).get('front_default');                       
         
-        ////////////Con esto fuerzo la lista//////////
+        
         List<Map<String, Object>> listStats = new List<Map<String, Object>>();
         for (Object instance : (List<Object>)results.get('stats')){
             listStats.add((Map<String, Object>)instance);
         }
         System.debug(listStats);
-        //////////Con esto la recorro//////////
+        
         for (Map<String, Object> element : listStats) {
             Map<String, Object> statsData = (Map<String, Object>)element.get('stat');
             If('hp' == (String)statsData.get('name')){
@@ -76,12 +83,14 @@ public class CallOutPokemons implements Database.Batchable<Pokemon__c>,Database.
             tipoAux += ((String)type.get('name')) + ';';
         }            
         poke.Tipos__c = tipoAux;        
+
         ////////////////////EJECUTO O MODIFICO/////////////////////////
         try {
             upsert poke ExtId__c; 
         } catch (Exception e) {
             system.debug('Error: ' + e.getMessage());
-        }         
+        }      
+        
     }
     public static void finish(Database.BatchableContext bc){
         system.debug('Pase por el finish');

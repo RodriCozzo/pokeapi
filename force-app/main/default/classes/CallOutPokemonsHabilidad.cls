@@ -4,17 +4,26 @@ public class CallOutPokemonsHabilidad implements Database.Batchable<Habilidad__c
     public static List<Habilidad__c> start(Database.BatchableContext bc){
         
         List<Habilidad__c> habilidades = new List<Habilidad__c>();
+        
+        if (Test.isRunningTest()) {
+            for (Integer i=1; i<=1; i++) {
+                Habilidad__c habilidad = new Habilidad__c(ExtId__c=i);
+                habilidades.add(habilidad);
+            }
+        }else {
+
         for (Integer i=1; i<=267; i++) {
             Habilidad__c habilidad = new Habilidad__c(ExtId__c=i);
             habilidades.add(habilidad);
         }
-
+        }
+        
         insert habilidades;
         System.debug('Pase por el start' + habilidades);
 
         return habilidades;
     }
-    
+
     public static void execute(Database.BatchableContext bc, List<Habilidad__c> habilidades){
         system.debug('Pase por el execute');
         // 1 a 1 llamar a pokemon
@@ -26,7 +35,7 @@ public class CallOutPokemonsHabilidad implements Database.Batchable<Habilidad__c
         request.setMethod('GET');        
         HttpResponse response = http.send(request);
         
-        Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+        Map<String, Object> results = (Map<String, Object>)JSON.deserializeUntyped(response.getBody());
         System.debug(results);
 
         Habilidad__c pokemonHabilidad = new Habilidad__c();

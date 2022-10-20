@@ -4,11 +4,19 @@ public class CallOutPokemonsMovimientos implements Database.Batchable<Movimiento
     public static List<Movimiento__c> start(Database.BatchableContext bc){
         
         List<Movimiento__c> movimientos = new List<Movimiento__c>();
-        for (Integer i=1; i<=826; i++) {
-            Movimiento__c movimiento = new Movimiento__c(ExtId__c=i);
-            movimientos.add(movimiento);
-        }
 
+        if (Test.isRunningTest()) {
+            for (Integer i=1; i<=1; i++) {
+                Movimiento__c movimiento = new Movimiento__c(ExtId__c=i);
+                movimientos.add(movimiento);
+            }
+        }else {
+
+            for (Integer i=1; i<=826; i++) {
+                Movimiento__c movimiento = new Movimiento__c(ExtId__c=i);
+                movimientos.add(movimiento);
+            }
+        }
         insert movimientos;
         System.debug('Pase por el start' + movimientos);
 
